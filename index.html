@@ -108,7 +108,7 @@
 
   /* objet — facts */
   .objet{background:var(--marbre)}
-  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ligne);margin-top:60px;border:1px solid var(--ligne)}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ligne);margin-top:60px;border:1px solid var(--ligne);position:relative}
   .fact{background:var(--marbre);padding:34px 30px}
   .fact .k{font-family:var(--label);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--or)}
   .fact .v{font-family:var(--serif);font-size:clamp(27px,3vw,40px);font-weight:400;margin-top:10px;line-height:1.05}
@@ -297,7 +297,8 @@
     .decor svg{width:60vw!important}
     .mansion .decor{display:none!important}
     .lieu .decor-clouds{display:none!important}
-    .objet .decor-col{width:35vw!important}
+    .territoire .decor-col{display:none!important}
+    .facts .decor-col{width:30vw!important;top:0!important;bottom:0!important;right:-2px!important}
     .demande .decor-col{width:35vw!important}
   }
   @media(max-width:520px){
@@ -372,13 +373,13 @@
 
 <!-- I — OBJET -->
 <section class="objet" id="objet">
-  <div class="decor decor-col right" style="opacity:.4" aria-hidden="true"><img src="assets/decor/column1.png" alt=""></div>
   <div class="wrap reveal">
     <div class="sec-head"><span class="numeral">I</span><span class="eyebrow" data-i18n="navObjet">Объект</span></div>
     <h2 class="sec-title" data-i18n="objetTitle">Резиденция редкого достоинства</h2>
     <p class="lede" data-i18n="objetLede">Особняк около 1 500 м² на участке 1,9 гектара, возведённый по авторскому проекту архитектора Моро в традиции французского абсолютизма. Безупречные материалы, полная инженерная автономия и закрытая территория в окружении реликтового хвойного леса.</p>
     <div class="ornament"><span>✦</span></div>
     <div class="facts">
+      <div class="decor decor-col right" style="opacity:.4" aria-hidden="true"><img src="assets/decor/column1.png" alt=""></div>
       <div class="fact"><div class="k" data-i18n="kArea">Площадь дома</div><div class="v">1 500 <small>м²</small></div></div>
       <div class="fact"><div class="k" data-i18n="kPlot">Участок</div><div class="v">1,9 <small>га</small></div></div>
       <div class="fact"><div class="k" data-i18n="kBedsBath">Спальни с ванными</div><div class="v">5</div></div>
