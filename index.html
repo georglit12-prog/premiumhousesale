@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дом по авторскому проекту · Боровское шоссе</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=EB+Garamond:ital@0;1&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivoire:#F3EEE6;      /* слоновая кость */
+    --marbre:#FBFAF7;      /* мрамор */
+    --encre:#191F2B;       /* королевские чернила */
+    --ardoise:#333B49;     /* сланец крыши */
+    --or:#B5924F;          /* версальское золото */
+    --or-clair:#C9A86A;
+    --texte:#2A2A2A;
+    --texte-doux:#6B6356;
+    --ligne:rgba(181,146,79,.32);
+    --ombre:0 30px 80px -40px rgba(25,31,43,.55);
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --corps:'EB Garamond',Georgia,serif;
+    --label:'Jost',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--corps);background:var(--ivoire);color:var(--texte);
+    font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--or);color:#fff}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+
+  .eyebrow{
+    font-family:var(--label);font-weight:400;font-size:12px;letter-spacing:.42em;
+    text-transform:uppercase;color:var(--or);display:inline-block;
+  }
+  .numeral{font-family:var(--serif);font-weight:300;font-style:italic;color:var(--or);font-size:clamp(28px,4vw,46px)}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.08;letter-spacing:.005em}
+  .rule{height:1px;width:64px;background:var(--or);opacity:.7;border:0}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px clamp(20px,5vw,60px);
+    transition:background .5s ease,padding .5s ease,box-shadow .5s ease;
+  }
+  nav.scrolled{background:rgba(243,238,230,.92);backdrop-filter:blur(10px);padding:14px clamp(20px,5vw,60px);box-shadow:0 1px 0 var(--ligne)}
+  .brand{font-family:var(--serif);font-size:21px;letter-spacing:.16em;color:#fff;transition:color .5s}
+  .brand small{font-family:var(--label);font-size:9.5px;letter-spacing:.34em;display:block;opacity:.8;margin-top:2px}
+  nav.scrolled .brand{color:var(--encre)}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{
+    font-family:var(--label);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(255,255,255,.92);position:relative;padding:4px 0;transition:color .4s;
+  }
+  nav.scrolled .nav-links a{color:var(--texte-doux)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--or);transition:width .35s}
+  .nav-links a:hover{color:var(--or)}
+  .nav-links a:hover::after{width:100%}
+  .lang{display:flex;gap:2px;align-items:center;font-family:var(--label);font-size:12px;letter-spacing:.12em}
+  .lang button{background:none;border:0;cursor:pointer;color:rgba(255,255,255,.6);padding:4px 6px;font:inherit;transition:color .3s}
+  nav.scrolled .lang button{color:var(--texte-doux)}
+  .lang button.active{color:#fff}
+  nav.scrolled .lang button.active{color:var(--or)}
+  .lang span{opacity:.4}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+  .burger span{width:24px;height:1.5px;background:#fff;transition:.3s}
+  nav.scrolled .burger span{background:var(--encre)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('assets/facade_main.jpg') center 40%/cover no-repeat;transform:scale(1.06)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,25,35,.65)0%,rgba(20,25,35,.42)38%,rgba(20,25,35,.75)100%)}
+  .hero-inner{position:relative;z-index:2;padding:0 24px;max-width:980px;opacity:0;transform:translateY(24px);animation:rise 1.4s cubic-bezier(.2,.7,.2,1) .3s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .hero .eyebrow{color:var(--or-clair);margin-bottom:26px;text-shadow:0 1px 16px rgba(0,0,0,.55)}
+  .hero h1{font-size:clamp(42px,7.4vw,104px);font-weight:300;letter-spacing:.01em;text-shadow:0 2px 16px rgba(0,0,0,.6),0 4px 40px rgba(0,0,0,.35)}
+  .hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(18px,2.4vw,27px);margin-top:18px;color:rgba(255,255,255,.95);text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  .cartouche{display:flex;align-items:center;justify-content:center;gap:18px;margin:34px 0 30px}
+  .cartouche .line{height:1px;width:clamp(40px,9vw,120px);background:linear-gradient(90deg,transparent,var(--or-clair))}
+  .cartouche .line.r{background:linear-gradient(90deg,var(--or-clair),transparent)}
+  .cartouche .loc{font-family:var(--label);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.95);white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .hero-stats{display:flex;gap:clamp(22px,5vw,64px);justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .hero-stats div{text-align:center}
+  .hero-stats .v{font-family:var(--serif);font-size:clamp(24px,3.2vw,38px);font-weight:400;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+  .hero-stats .k{font-family:var(--label);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:4px;text-shadow:0 1px 6px rgba(0,0,0,.3)}
+  .hero-cta{display:inline-block;margin-top:42px;font-family:var(--label);font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.7);padding:16px 38px;transition:.45s;backdrop-filter:blur(4px);text-shadow:0 1px 6px rgba(0,0,0,.3)}
+  .hero-cta:hover{background:var(--or);border-color:var(--or);color:#fff}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;font-family:var(--label);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.7);animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+  /* ---------- SECTIONS ---------- */
+  section{position:relative}
+  .wrap{max-width:1200px;margin:0 auto;padding:clamp(72px,11vw,148px) clamp(22px,5vw,60px);position:relative;z-index:1}
+  .sec-head{display:flex;align-items:baseline;gap:22px;margin-bottom:14px}
+  .sec-head .eyebrow{margin:0}
+  .sec-title{font-size:clamp(34px,5.6vw,68px);font-weight:400;margin:6px 0 0;max-width:16ch}
+  .lede{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.4vw,28px);line-height:1.45;color:var(--ardoise);max-width:40ch;margin-top:26px}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* objet — facts */
+  .objet{background:var(--marbre)}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ligne);margin-top:60px;border:1px solid var(--ligne)}
+  .fact{background:var(--marbre);padding:34px 30px}
+  .fact .k{font-family:var(--label);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--or)}
+  .fact .v{font-family:var(--serif);font-size:clamp(27px,3vw,40px);font-weight:400;margin-top:10px;line-height:1.05}
+  .fact .v small{font-size:.5em;color:var(--texte-doux);letter-spacing:.04em}
+
+  /* objet — enhanced layout */
+  .objet-intro{display:grid;grid-template-columns:1fr .75fr;gap:clamp(36px,6vw,80px);align-items:center}
+  .objet-accent{position:relative;overflow:hidden}
+  .objet-accent img{width:100%;aspect-ratio:3/4;object-fit:cover;box-shadow:var(--ombre)}
+  .objet-accent::after{content:'';position:absolute;inset:0;border:1px solid rgba(181,146,79,.35);pointer-events:none}
+  .ornament{display:flex;align-items:center;justify-content:center;gap:18px;margin:48px 0 8px}
+  .ornament::before,.ornament::after{content:'';width:clamp(40px,8vw,100px);height:1px}
+  .ornament::before{background:linear-gradient(90deg,transparent,var(--or))}
+  .ornament::after{background:linear-gradient(90deg,var(--or),transparent)}
+  .ornament span{color:var(--or);font-size:14px;line-height:1;opacity:.6}
+
+  /* mansion — improved readability */
+  .mansion .sec-title{color:var(--encre)}
+  .mansion .lede{color:var(--texte)}
+
+  /* ---------- DECORATIVE ACCENTS ---------- */
+  .decor{position:absolute;pointer-events:none;z-index:0}
+  .decor img{width:100%;height:auto;object-fit:contain}
+  .decor-col{top:0;bottom:0}
+  .decor-col img{height:100%;width:auto;object-fit:contain}
+  .decor-col.left{left:-10px}
+  .decor-col.right{right:-10px}
+  .decor-flowers{position:absolute;pointer-events:none;z-index:0}
+  .decor-flowers img{width:100%;height:auto;object-fit:contain}
+  .decor-sm{width:clamp(120px,16vw,220px)}
+  .decor-md{width:clamp(180px,22vw,320px)}
+  .decor-lg{width:clamp(260px,32vw,480px)}
+
+  .objet{overflow:hidden;position:relative}
+  .mansion{overflow:hidden;position:relative}
+  .interieurs{position:relative}
+  .territoire{overflow:hidden;position:relative}
+  .lieu{overflow:hidden;position:relative}
+  .demande{overflow:hidden;position:relative}
+
+  /* section ornamental dividers */
+  .section-ornament{padding:clamp(30px,5vw,56px) 0;text-align:center;position:relative}
+  .section-ornament span{display:inline-block;color:var(--or);font-size:26px;opacity:.6;position:relative}
+  .section-ornament span::before,.section-ornament span::after{content:'';position:absolute;top:50%;width:clamp(50px,12vw,160px);height:1px;background:var(--or);opacity:.6}
+  .section-ornament span::before{right:calc(100% + 16px)}
+  .section-ornament span::after{left:calc(100% + 16px)}
+  .section-ornament.on-marble{background:var(--marbre)}
+  .section-ornament.to-dark{background:linear-gradient(180deg,var(--ivoire) 0%,var(--encre) 100%)}
+  .section-ornament.to-dark span{color:var(--or-clair)}
+  .section-ornament.to-dark span::before,.section-ornament.to-dark span::after{background:var(--or-clair)}
+  .section-ornament.to-light{background:linear-gradient(180deg,var(--encre) 0%,var(--ivoire) 100%)}
+  .section-ornament.to-light span{color:var(--or-clair)}
+  .section-ornament.to-light span::before,.section-ornament.to-light span::after{background:var(--or-clair)}
+
+  /* galleries */
+  .gallery{display:grid;gap:18px;margin-top:62px}
+  .g-ext{grid-template-columns:repeat(6,1fr)}
+  .g-int{grid-template-columns:repeat(6,1fr)}
+  figure{position:relative;overflow:hidden;background:var(--ardoise)}
+  figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1);filter:saturate(1.02)}
+  figure:hover img{transform:scale(1.05)}
+  figcaption{position:absolute;left:0;bottom:0;right:0;padding:46px 22px 18px;
+    background:linear-gradient(0deg,rgba(20,25,35,.78),transparent);
+    font-family:var(--label);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#fff;
+    opacity:0;transform:translateY(8px);transition:.5s}
+  figure:hover figcaption{opacity:1;transform:none}
+  .span3{grid-column:span 3}.span2{grid-column:span 2}.span4{grid-column:span 4}
+  .tall{grid-row:span 2}
+  .g-ext figure{aspect-ratio:3/2}
+  .g-ext figure.tall{aspect-ratio:auto}
+  .g-int figure{aspect-ratio:16/10}
+  .g-int figure.portrait{aspect-ratio:auto}
+
+  /* interiors block */
+  .interieurs{background:var(--encre);color:#EFEAE0}
+  .interieurs .eyebrow{color:var(--or-clair)}
+  .interieurs .sec-title{color:#fff}
+  .interieurs .lede{color:rgba(239,234,224,.78)}
+  .interieurs .numeral{color:var(--or-clair)}
+  .features{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;margin-top:64px;border-top:1px solid rgba(201,168,106,.25)}
+  .feature{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(201,168,106,.18)}
+  .feature .fi{font-family:var(--serif);font-style:italic;color:var(--or-clair);font-size:20px;min-width:30px;line-height:1.5}
+  .feature .ft{font-family:var(--corps);font-size:17.5px;line-height:1.5;color:rgba(239,234,224,.92)}
+  .feature .ft b{font-weight:600;color:#fff;font-family:var(--serif);font-size:19px}
+
+  /* territory */
+  .territoire{background:var(--ivoire)}
+  .terr-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,72px);align-items:center;margin-top:60px}
+  .terr-grid figure{aspect-ratio:4/3;box-shadow:var(--ombre)}
+  .specs{list-style:none}
+  .specs li{padding:22px 0;border-bottom:1px solid var(--ligne);display:flex;gap:18px;align-items:flex-start}
+  .specs li:first-child{border-top:1px solid var(--ligne)}
+  .specs .si{font-family:var(--serif);font-style:italic;color:var(--or);font-size:19px;min-width:26px}
+  .specs .st b{font-family:var(--serif);font-weight:600;font-size:19px;display:block}
+  .specs .st span{color:var(--texte-doux);font-size:16.5px}
+
+  /* location */
+  .lieu{background:var(--marbre);text-align:center}
+  .lieu .wrap{max-width:1000px}
+  .routes{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ligne);margin-top:66px;border:1px solid var(--ligne)}
+  .route{background:var(--marbre);padding:38px 16px}
+  .route .v{font-family:var(--serif);font-size:clamp(30px,4vw,46px);font-weight:400;color:var(--or);line-height:1}
+  .route .v small{font-size:.42em;color:var(--texte);letter-spacing:.06em;display:block;margin-top:8px}
+  .route .k{font-family:var(--label);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:12px;color:var(--texte-doux)}
+
+  /* ---------- ATMOSPHERE DIVIDERS ---------- */
+  .atmo{position:relative;height:clamp(420px,62vh,640px);display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+  .atmo-bg{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform}
+  .atmo::after{content:"";position:absolute;inset:0;background:rgba(18,22,31,.46)}
+  .atmo-inner{position:relative;z-index:2;padding:0 24px;max-width:760px}
+  .atmo .eyebrow{color:var(--or-clair);margin-bottom:20px}
+  .atmo p{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(24px,3.6vw,42px);line-height:1.28;text-shadow:0 2px 28px rgba(0,0,0,.4)}
+  .atmo .tag{margin-top:24px;font-family:var(--label);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+
+  /* ---------- FORM ---------- */
+  .demande{background:var(--encre);color:#EFEAE0}
+  .demande .wrap{max-width:760px;text-align:center}
+  .demande .eyebrow{color:var(--or-clair)}
+  .demande h2{color:#fff;font-size:clamp(34px,5.4vw,62px);font-weight:300;margin-top:14px}
+  .demande .lede{color:rgba(239,234,224,.8);margin:24px auto 0;text-align:center}
+  form{margin-top:54px;text-align:left}
+  .field{margin-bottom:26px}
+  .field label{display:block;font-family:var(--label);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--or-clair);margin-bottom:10px}
+  .field input{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(201,168,106,.4);
+    color:#fff;font-family:var(--serif);font-size:22px;padding:10px 2px;transition:border-color .4s}
+  .field input::placeholder{color:rgba(239,234,224,.32);font-style:italic}
+  .field input:focus{outline:none;border-color:var(--or)}
+  .hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+  .submit{margin-top:14px;width:100%;background:var(--or);color:#fff;border:0;cursor:pointer;
+    font-family:var(--label);font-size:13px;letter-spacing:.26em;text-transform:uppercase;padding:21px;transition:.4s}
+  .submit:hover{background:var(--or-clair)}
+  .submit:disabled{opacity:.55;cursor:default}
+  .form-note{font-family:var(--label);font-size:11px;letter-spacing:.06em;color:rgba(239,234,224,.45);text-align:center;margin-top:22px;text-transform:none}
+  .form-msg{text-align:center;margin-top:22px;font-family:var(--serif);font-size:19px;min-height:26px}
+  .form-msg.ok{color:var(--or-clair)}
+  .form-msg.err{color:#E5A3A3}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#11151E;color:rgba(239,234,224,.6);text-align:center;padding:64px 24px 54px}
+  footer .fbrand{font-family:var(--serif);font-size:24px;color:#fff;letter-spacing:.1em}
+  footer .fsub{font-family:var(--label);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--or-clair);margin-top:12px}
+  footer .disclaimer{max-width:680px;margin:34px auto 0;font-size:14.5px;line-height:1.6;color:rgba(239,234,224,.4);font-style:italic}
+  footer .fline{width:50px;height:1px;background:var(--or);margin:34px auto 0;opacity:.6}
+  footer .fcopy{font-family:var(--label);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;margin-top:30px;color:rgba(239,234,224,.32)}
+
+  /* ---------- MOBILE MENU ---------- */
+  .mobile-menu{position:fixed;inset:0;z-index:99;background:var(--encre);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;
+    opacity:0;pointer-events:none;transition:opacity .5s}
+  .mobile-menu.open{opacity:1;pointer-events:auto}
+  .mobile-menu a{font-family:var(--serif);font-size:30px;color:#fff;font-style:italic}
+  .mobile-menu a:hover{color:var(--or-clair)}
+  .mm-close{position:absolute;top:24px;right:28px;font-size:34px;color:#fff;background:none;border:0;cursor:pointer;font-family:var(--corps)}
+
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .burger{display:flex}
+    .facts{grid-template-columns:repeat(2,1fr)}
+    .g-ext,.g-int{grid-template-columns:repeat(2,1fr)}
+    .span3,.span2,.span4{grid-column:span 2}
+    .tall{grid-row:auto}
+    .g-ext figure.tall,.g-int figure.portrait{aspect-ratio:3/2}
+    .features{grid-template-columns:1fr;gap:0}
+    .terr-grid{grid-template-columns:1fr}
+    .routes{grid-template-columns:repeat(2,1fr)}
+    .routes .route:last-child{grid-column:1/-1}
+    .objet-intro{grid-template-columns:1fr}
+    .objet-accent{max-width:420px;margin:30px auto 0}
+    .decor{display:none}
+  }
+  @media(max-width:520px){
+    body{font-size:17px}
+    .facts{grid-template-columns:1fr}
+    .g-ext,.g-int{grid-template-columns:1fr}
+    .span3,.span2,.span4{grid-column:span 1}
+    .routes{grid-template-columns:1fr}
+    .hero h1{font-size:clamp(38px,11vw,60px)}
+    .hero .sub{font-size:16px;padding:0 6px}
+    .hero-stats{gap:18px 22px}
+    .hero-stats div{flex:0 0 40%}
+    .hero-stats .v{font-size:22px}
+    .cartouche .loc{font-size:10.5px;white-space:normal}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#hero" class="brand">Боровское шоссе<small data-i18n="brandSub">Дом по авторскому проекту</small></a>
+  <div class="nav-links">
+    <a href="#objet" data-i18n="navObjet">Объект</a>
+    <a href="#mansion" data-i18n="navMansion">Особняк</a>
+    <a href="#interieurs" data-i18n="navInt">Интерьеры</a>
+    <a href="#territoire" data-i18n="navTerr">Территория</a>
+    <a href="#lieu" data-i18n="navLieu">Расположение</a>
+    <a href="#demande" data-i18n="navReq">Заявка</a>
+  </div>
+  <div class="lang">
+    <button id="ru" class="active" onclick="setLang('ru')">RU</button><span>·</span><button id="en" onclick="setLang('en')">EN</button>
+    <button class="burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMenu()">×</button>
+  <a href="#objet" onclick="toggleMenu()" data-i18n="navObjet">Объект</a>
+  <a href="#mansion" onclick="toggleMenu()" data-i18n="navMansion">Особняк</a>
+  <a href="#interieurs" onclick="toggleMenu()" data-i18n="navInt">Интерьеры</a>
+  <a href="#territoire" onclick="toggleMenu()" data-i18n="navTerr">Территория</a>
+  <a href="#lieu" onclick="toggleMenu()" data-i18n="navLieu">Расположение</a>
+  <a href="#demande" onclick="toggleMenu()" data-i18n="navReq">Заявка</a>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <span class="eyebrow" data-i18n="heroEyebrow">Закрытая продажа</span>
+    <h1 data-i18n="heroTitle">Дом по авторскому проекту</h1>
+    <div class="sub" data-i18n="heroSub">в стиле французского абсолютизма · проект архитектора Моро</div>
+    <div class="cartouche">
+      <span class="line"></span>
+      <span class="loc" data-i18n="heroLoc">Боровское шоссе · 14 км от МКАД</span>
+      <span class="line r"></span>
+    </div>
+    <div class="hero-stats">
+      <div><div class="v" data-i18n="priceShort">2,7 млрд ₽</div><div class="k" data-i18n="kPrice">Стоимость</div></div>
+      <div><div class="v">1 500 м²</div><div class="k" data-i18n="kArea">Площадь дома</div></div>
+      <div><div class="v">1,9 га</div><div class="k" data-i18n="kPlot">Участок</div></div>
+      <div><div class="v">5</div><div class="k" data-i18n="kBeds">Спальни</div></div>
+    </div>
+    <a href="#demande" class="hero-cta" data-i18n="heroCta">Запросить просмотр</a>
+  </div>
+  <div class="scroll-hint" data-i18n="scroll">Листайте</div>
+</header>
+
+<!-- I — OBJET -->
+<section class="objet" id="objet">
+  <div class="decor decor-col right" aria-hidden="true"><img src="assets/decor/column1.png" alt="" style="opacity:.4"></div>
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="numeral">I</span><span class="eyebrow" data-i18n="navObjet">Объект</span></div>
+    <h2 class="sec-title" data-i18n="objetTitle">Резиденция редкого достоинства</h2>
+    <p class="lede" data-i18n="objetLede">Особняк около 1 500 м² на участке 1,9 гектара, возведённый по авторскому проекту архитектора Моро в традиции французского абсолютизма. Безупречные материалы, полная инженерная автономия и закрытая территория в окружении реликтового хвойного леса.</p>
+    <div class="ornament"><span>✦</span></div>
+    <div class="facts">
+      <div class="fact"><div class="k" data-i18n="kArea">Площадь дома</div><div class="v">1 500 <small>м²</small></div></div>
+      <div class="fact"><div class="k" data-i18n="kPlot">Участок</div><div class="v">1,9 <small>га</small></div></div>
+      <div class="fact"><div class="k" data-i18n="kBedsBath">Спальни с ванными</div><div class="v">5</div></div>
+      <div class="fact"><div class="k" data-i18n="kArch">Архитектор</div><div class="v" data-i18n="vArch">Моро</div></div>
+      <div class="fact"><div class="k" data-i18n="kStyle">Стиль</div><div class="v" data-i18n="vStyle">Фр. абсолютизм</div></div>
+      <div class="fact"><div class="k" data-i18n="kPrice">Стоимость</div><div class="v" data-i18n="priceFact">2,7 млрд ₽</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-ornament on-marble"><span>⚜</span></div>
+
+<!-- II — MANSION -->
+<section class="mansion" id="mansion">
+  <div class="decor decor-col left" aria-hidden="true" style="left:-60px"><img src="assets/decor/column2.png" alt="" style="opacity:.35"></div>
+  <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:clamp(160px,20vw,300px)"><img src="assets/decor/roses.png" alt="" style="opacity:.3"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-head"><span class="numeral">II</span><span class="eyebrow" data-i18n="navMansion">Особняк</span></div>
+      <h2 class="sec-title" data-i18n="mansionTitle">Архитектура фасадов</h2>
+      <p class="lede" data-i18n="mansionLede">Белокаменные фасады, кровля из артуазского сланца, кованые балконы и симметрия, выверенная по канонам эпохи.</p>
+    </div>
+    <div class="gallery g-ext reveal">
+      <figure class="span4 tall"><img src="assets/facade_main.jpg" alt="" loading="lazy"><figcaption data-i18n="capFacade">Главный фасад</figcaption></figure>
+      <figure class="span2"><img src="assets/front_door.jpg" alt="" loading="lazy"><figcaption data-i18n="capDoor">Парадный вход</figcaption></figure>
+      <figure class="span2"><img src="assets/balcony.jpg" alt="" loading="lazy"><figcaption data-i18n="capBalcony">Кованый балкон</figcaption></figure>
+      <figure class="span2"><img src="assets/side_stairs.jpg" alt="" loading="lazy"><figcaption data-i18n="capStairs">Спуск в сад</figcaption></figure>
+      <figure class="span2"><img src="assets/facade_court.jpg" alt="" loading="lazy"><figcaption data-i18n="capCourt">Дворовый фасад</figcaption></figure>
+      <figure class="span3"><img src="assets/terrace.jpg" alt="" loading="lazy"><figcaption data-i18n="capTerrace">Терраса с балюстрадой</figcaption></figure>
+      <figure class="span3"><img src="assets/park.jpg" alt="" loading="lazy"><figcaption data-i18n="capParkView">Парковый фасад</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="section-ornament to-dark"><span>⚜</span></div>
+
+<!-- III — INTERIEURS -->
+<section class="interieurs" id="interieurs">
+  <div class="decor" aria-hidden="true" style="right:0;top:0;width:clamp(400px,50vw,800px)"><img src="assets/decor/clouds.png" alt="" style="opacity:.2"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-head"><span class="numeral">III</span><span class="eyebrow" data-i18n="navInt">Интерьеры</span></div>
+      <h2 class="sec-title" data-i18n="intTitle">Внутреннее убранство</h2>
+      <p class="lede" data-i18n="intLede">Светлые залы, антикварные камины и материалы, собранные по всей Европе. Каждая деталь — выбор автора проекта.</p>
+    </div>
+    <div class="gallery g-int reveal">
+      <figure class="span3"><img src="assets/library.jpg" alt="" loading="lazy"><figcaption data-i18n="capLibrary">Библиотека</figcaption></figure>
+      <figure class="span3"><img src="assets/fireplace.jpg" alt="" loading="lazy"><figcaption data-i18n="capFire">Гостиная с камином</figcaption></figure>
+      <figure class="span2"><img src="assets/bathroom.jpg" alt="" loading="lazy"><figcaption data-i18n="capBath">Мраморная ванная</figcaption></figure>
+      <figure class="span2"><img src="assets/hallway.jpg" alt="" loading="lazy"><figcaption data-i18n="capHall">Анфилада</figcaption></figure>
+      <figure class="span2"><img src="assets/sauna.jpg" alt="" loading="lazy"><figcaption data-i18n="capSauna">Сауна</figcaption></figure>
+      <figure class="span4"><img src="assets/pool.jpg" alt="" loading="lazy"><figcaption data-i18n="capPool">Крытый бассейн</figcaption></figure>
+      <figure class="span2 portrait"><img src="assets/elevator.jpg" alt="" loading="lazy"><figcaption data-i18n="capLift">Баварский лифт</figcaption></figure>
+    </div>
+    <div class="features reveal">
+      <div class="feature"><span class="fi">i</span><div class="ft" data-i18n="feat1"><b>Мебель и убранство.</b> Современная мебель Ralph Lauren, антиквариат, иранские ковры.</div></div>
+      <div class="feature"><span class="fi">ii</span><div class="ft" data-i18n="feat2"><b>Камины.</b> Подлинные французские камины XVII и XIX веков.</div></div>
+      <div class="feature"><span class="fi">iii</span><div class="ft" data-i18n="feat3"><b>Паркет.</b> Исключительно радиальный дуб.</div></div>
+      <div class="feature"><span class="fi">iv</span><div class="ft" data-i18n="feat4"><b>Фурнитура.</b> Старинные дверные ригели и петли с царским клеймом.</div></div>
+      <div class="feature"><span class="fi">v</span><div class="ft" data-i18n="feat5"><b>Ванные комнаты.</b> Белый мрамор с серыми вкраплениями.</div></div>
+      <div class="feature"><span class="fi">vi</span><div class="ft" data-i18n="feat6"><b>Окна.</b> Изготовлены индивидуально на заказ.</div></div>
+      <div class="feature"><span class="fi">vii</span><div class="ft" data-i18n="feat7"><b>Вертикаль.</b> Баварский лифт; лестница Arden Metal.</div></div>
+      <div class="feature"><span class="fi">viii</span><div class="ft" data-i18n="feat8"><b>Скульптура.</b> Авторские копии оригинальных произведений в доме и парке.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-ornament to-light"><span>⚜</span></div>
+
+<!-- IV — TERRITOIRE -->
+<section class="territoire" id="territoire">
+  <div class="decor decor-col right" aria-hidden="true" style="right:-80px"><img src="assets/decor/column4.png" alt="" style="opacity:.35"></div>
+  <div class="decor" aria-hidden="true" style="left:0;bottom:0;width:clamp(160px,20vw,300px)"><img src="assets/decor/roses.png" alt="" style="opacity:.28"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-head"><span class="numeral">IV</span><span class="eyebrow" data-i18n="navTerr">Территория</span></div>
+      <h2 class="sec-title" data-i18n="terrTitle">Территория и автономия</h2>
+      <p class="lede" data-i18n="terrLede">1,9 гектара ухоженного парка с редчайшими пихтами, кедрами, соснами, каштанами и берёзами — и полностью независимая инженерия.</p>
+    </div>
+    <div class="terr-grid reveal">
+      <figure><img src="assets/park.jpg" alt=""><figcaption data-i18n="capPark">Парк · реликтовый хвойный лес</figcaption></figure>
+      <ul class="specs">
+        <li><span class="si">i</span><div class="st"><b data-i18n="spec1t">Собственная вода</b><span data-i18n="spec1s">Две скважины — 250 м и 125 м</span></div></li>
+        <li><span class="si">ii</span><div class="st"><b data-i18n="spec2t">Электричество 110 кВт</b><span data-i18n="spec2s">Собственный дизель — запуск за 8 секунд</span></div></li>
+        <li><span class="si">iii</span><div class="st"><b data-i18n="spec3t">Полная автономия</b><span data-i18n="spec3s">Собственный газовый щит на участке</span></div></li>
+        <li><span class="si">iv</span><div class="st"><b data-i18n="spec4t">Запас дров на 50 лет</b><span data-i18n="spec4s">Для каминов всего дома</span></div></li>
+        <li><span class="si">v</span><div class="st"><b data-i18n="spec5t">Дом для персонала и охраны</b><span data-i18n="spec5s">Три спальни, кухня, гостиная, секьюрити-комната с аппаратурой</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- V — LIEU -->
+<section class="lieu" id="lieu">
+  <div class="decor" aria-hidden="true" style="left:0;bottom:0;width:100%"><img src="assets/decor/clouds.png" alt="" style="opacity:.2;width:100%"></div>
+  <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:clamp(160px,20vw,280px)"><img src="assets/decor/bust.png" alt="" style="opacity:.22"></div>
+  <div class="wrap reveal">
+    <div class="sec-head" style="justify-content:center"><span class="numeral">V</span><span class="eyebrow" data-i18n="navLieu">Расположение</span></div>
+    <h2 class="sec-title" style="margin:6px auto 0;text-align:center;max-width:20ch" data-i18n="lieuTitle">В нескольких минутах от Москвы</h2>
+    <div class="routes">
+      <div class="route"><div class="v">14<small data-i18n="km">км от МКАД</small></div><div class="k" data-i18n="r1">Боровское шоссе</div></div>
+      <div class="route"><div class="v">14<small data-i18n="km">км от МКАД</small></div><div class="k" data-i18n="r2">Можайское шоссе</div></div>
+      <div class="route"><div class="v">7<small data-i18n="min">минут</small></div><div class="k" data-i18n="r3">Аэропорт Внуково</div></div>
+      <div class="route"><div class="v">6<small data-i18n="min">минут</small></div><div class="k" data-i18n="r4">D4 · Внуково</div></div>
+      <div class="route"><div class="v">9<small data-i18n="min">минут</small></div><div class="k" data-i18n="r5">D4 · Мичуринец</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHERE 4 -->
+<div class="atmo">
+  <div class="atmo-bg" data-bg="assets/atmo_statues.jpg"></div>
+  <div class="atmo-inner">
+    <span class="eyebrow" data-i18n="atmoLabel">Эстетика стиля</span>
+    <p data-i18n="atmo4">Дом, в котором история и тишина становятся частью каждого дня.</p>
+  </div>
+</div>
+
+<!-- VI — DEMANDE -->
+<section class="demande" id="demande">
+  <div class="decor decor-col left" aria-hidden="true"><img src="assets/decor/column1.png" alt="" style="opacity:.25"></div>
+  <div class="decor decor-col right" aria-hidden="true"><img src="assets/decor/column1.png" alt="" style="opacity:.25;transform:scaleX(-1)"></div>
+  <div class="wrap reveal">
+    <div class="sec-head" style="justify-content:center"><span class="numeral">VI</span><span class="eyebrow" data-i18n="navReq">Заявка</span></div>
+    <h2 data-i18n="reqTitle">Частный просмотр</h2>
+    <p class="lede" data-i18n="reqLede">Объект представлен в режиме закрытой продажи. Оставьте заявку — мы свяжемся для организации показа.</p>
+    <form id="leadForm" autocomplete="off">
+      <div class="field">
+        <label data-i18n="fAgent">ФИО агента</label>
+        <input type="text" name="agent" data-ph="phAgent" placeholder="Иванов Иван Иванович" required>
+      </div>
+      <div class="field">
+        <label data-i18n="fBuyer">ФИО потенциального покупателя</label>
+        <input type="text" name="buyer" data-ph="phBuyer" placeholder="Петров Пётр Петрович">
+      </div>
+      <div class="field">
+        <label data-i18n="fPhone">Телефон для связи</label>
+        <input type="tel" name="phone" data-ph="phPhone" placeholder="+7 900 000-00-00" required>
+      </div>
+      <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="submit" id="submitBtn" data-i18n="fSubmit">Отправить заявку</button>
+      <div class="form-note" data-i18n="fNote">Данные используются только для организации просмотра объекта.</div>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="fbrand" data-i18n="heroTitle">Дом по авторскому проекту</div>
+  <div class="fsub" data-i18n="footSub">Боровское шоссе · Закрытая продажа</div>
+  <p class="disclaimer" data-i18n="footDisc">Атмосферные изображения служат визуализацией архитектурного стиля и не являются фотографиями данного объекта. Реальные фотографии особняка размещены в разделах «Особняк», «Интерьеры» и «Территория».</p>
+  <div class="fline"></div>
+  <div class="fcopy">© 2025 · Private Sale</div>
+</footer>
+
+<script>
+/* ====== КОНФИГУРАЦИЯ ====== */
+/* Цена в одном месте. Если верная цена $35M — поменяйте обе строки ниже. */
+var PRICE = {
+  ru: { short: '2,7 млрд ₽', full: '2 700 000 000 ₽' },
+  en: { short: '$33M',       full: '$33,000,000' }
+};
+/* Куда отправлять заявку. На Vercel оставьте как есть.
+   Если открываете этот файл отдельно (без сервера) — впишите полный адрес,
+   например 'https://ваш-проект.vercel.app/api/submit' */
+var FORM_ENDPOINT = '/api/submit';
+
+/* ====== ПЕРЕВОДЫ ====== */
+var I18N = {
+ ru:{
+  brandSub:'Дом по авторскому проекту',
+  navObjet:'Объект',navMansion:'Особняк',navInt:'Интерьеры',navTerr:'Территория',navLieu:'Расположение',navReq:'Заявка',
+  heroEyebrow:'Закрытая продажа',heroTitle:'Дом по авторскому проекту',
+  heroSub:'в стиле французского абсолютизма · проект архитектора Моро',
+  heroLoc:'Боровское шоссе · 14 км от МКАД',heroCta:'Запросить просмотр',scroll:'Листайте',
+  kPrice:'Стоимость',kArea:'Площадь дома',kPlot:'Участок',kBeds:'Спальни',kBedsBath:'Спальни с ванными',
+  kArch:'Архитектор',vArch:'Моро',kStyle:'Стиль',vStyle:'Фр. абсолютизм',
+  objetTitle:'Резиденция редкого достоинства',
+  objetLede:'Особняк около 1 500 м² на участке 1,9 гектара, возведённый по авторскому проекту архитектора Моро в традиции французского абсолютизма. Безупречные материалы, полная инженерная автономия и закрытая территория в окружении реликтового хвойного леса.',
+  atmoLabel:'Эстетика стиля',atmoTag:'Визуализация стиля · не фотография объекта',
+  atmo1:'Свет, камень и золото — язык, на котором говорит французский абсолютизм.',
+  atmo2:'Расписные плафоны, лепнина и позолота — небо, перенесённое под своды.',
+  atmo3:'Мрамор, обращённый в движение, — классика как часть повседневности.',
+  atmo4:'Дом, в котором история и тишина становятся частью каждого дня.',
+  mansionTitle:'Архитектура фасадов',
+  mansionLede:'Белокаменные фасады, кровля из артуазского сланца, кованые балконы и симметрия, выверенная по канонам эпохи.',
+  capFacade:'Главный фасад',capDoor:'Парадный вход',capBalcony:'Кованый балкон',capStairs:'Спуск в сад',
+  capCourt:'Дворовый фасад',capTerrace:'Терраса с балюстрадой',capParkView:'Парковый фасад',
+  intTitle:'Внутреннее убранство',
+  intLede:'Светлые залы, антикварные камины и материалы, собранные по всей Европе. Каждая деталь — выбор автора проекта.',
+  capLibrary:'Библиотека',capFire:'Гостиная с камином',capBath:'Мраморная ванная',capHall:'Анфилада',
+  capSauna:'Сауна',capPool:'Крытый бассейн',capLift:'Баварский лифт',
+  feat1:'<b>Мебель и убранство.</b> Современная мебель Ralph Lauren, антиквариат, иранские ковры.',
+  feat2:'<b>Камины.</b> Подлинные французские камины XVII и XIX веков.',
+  feat3:'<b>Паркет.</b> Исключительно радиальный дуб.',
+  feat4:'<b>Фурнитура.</b> Старинные дверные ригели и петли с царским клеймом.',
+  feat5:'<b>Ванные комнаты.</b> Белый мрамор с серыми вкраплениями.',
+  feat6:'<b>Окна.</b> Изготовлены индивидуально на заказ.',
+  feat7:'<b>Вертикаль.</b> Баварский лифт; лестница Arden Metal.',
+  feat8:'<b>Скульптура.</b> Авторские копии оригинальных произведений в доме и парке.',
+  terrTitle:'Территория и автономия',
+  terrLede:'1,9 гектара ухоженного парка с редчайшими пихтами, кедрами, соснами, каштанами и берёзами — и полностью независимая инженерия.',
+  capPark:'Парк · реликтовый хвойный лес',
+  spec1t:'Собственная вода',spec1s:'Две скважины — 250 м и 125 м',
+  spec2t:'Электричество 110 кВт',spec2s:'Собственный дизель — запуск за 8 секунд',
+  spec3t:'Полная автономия',spec3s:'Собственный газовый щит на участке',
+  spec4t:'Запас дров на 50 лет',spec4s:'Для каминов всего дома',
+  spec5t:'Дом для персонала и охраны',spec5s:'Три спальни, кухня, гостиная, секьюрити-комната с аппаратурой',
+  lieuTitle:'В нескольких минутах от Москвы',
+  km:'км от МКАД',min:'минут',
+  r1:'Боровское шоссе',r2:'Можайское шоссе',r3:'Аэропорт Внуково',r4:'D4 · Внуково',r5:'D4 · Мичуринец',
+  reqTitle:'Частный просмотр',
+  reqLede:'Объект представлен в режиме закрытой продажи. Оставьте заявку — мы свяжемся для организации показа.',
+  fAgent:'ФИО агента',fBuyer:'ФИО потенциального покупателя',fPhone:'Телефон для связи',
+  phAgent:'Иванов Иван Иванович',phBuyer:'Петров Пётр Петрович',phPhone:'+7 900 000-00-00',
+  fSubmit:'Отправить заявку',fNote:'Данные используются только для организации просмотра объекта.',
+  footSub:'Боровское шоссе · Закрытая продажа',
+  footDisc:'Атмосферные изображения служат визуализацией архитектурного стиля и не являются фотографиями данного объекта. Реальные фотографии особняка размещены в разделах «Особняк», «Интерьеры» и «Территория».',
+  msgSending:'Отправляем…',msgOk:'Заявка отправлена. Мы свяжемся с вами.',
+  msgErrFields:'Заполните ФИО агента и телефон.',msgErr:'Не удалось отправить. Попробуйте ещё раз.'
+ },
+ en:{
+  brandSub:'A House of Singular Design',
+  navObjet:'The Property',navMansion:'The Mansion',navInt:'Interiors',navTerr:'Grounds',navLieu:'Location',navReq:'Enquiry',
+  heroEyebrow:'Private Sale',heroTitle:'A House of Singular Design',
+  heroSub:'in the style of French Absolutism · designed by architect Moreau',
+  heroLoc:'Borovskoye Highway · 14 km from MKAD',heroCta:'Request a viewing',scroll:'Scroll',
+  kPrice:'Price',kArea:'Living area',kPlot:'Plot',kBeds:'Bedrooms',kBedsBath:'En-suite bedrooms',
+  kArch:'Architect',vArch:'Moreau',kStyle:'Style',vStyle:'Fr. Absolutism',
+  objetTitle:'A residence of rare distinction',
+  objetLede:'A mansion of approximately 1,500 m² set within 1.9 hectares, built to the bespoke design of architect Moreau in the tradition of French Absolutism. Impeccable materials, complete engineering autonomy and a private estate enveloped by ancient conifer forest.',
+  atmoLabel:'Style visualisation',atmoTag:'Style visualisation · not a photograph of the property',
+  atmo1:'Light, stone and gold — the language French Absolutism speaks in.',
+  atmo2:'Painted ceilings, mouldings and gilding — the sky brought beneath the vaults.',
+  atmo3:'Marble turned to movement — the classical made part of everyday life.',
+  atmo4:'A house where history and stillness become part of every day.',
+  mansionTitle:'The architecture of the façades',
+  mansionLede:'White-stone façades, an Artois slate roof, wrought-iron balconies and a symmetry measured to the canons of the era.',
+  capFacade:'Principal façade',capDoor:'Grand entrance',capBalcony:'Wrought-iron balcony',capStairs:'Descent to the garden',
+  capCourt:'Courtyard elevation',capTerrace:'Balustraded terrace',capParkView:'Park elevation',
+  intTitle:'The interiors',
+  intLede:'Light-filled halls, antique fireplaces and materials gathered across Europe. Every detail chosen by the architect.',
+  capLibrary:'Library',capFire:'Salon with fireplace',capBath:'Marble bath',capHall:'Enfilade',
+  capSauna:'Sauna',capPool:'Indoor pool',capLift:'Bavarian elevator',
+  feat1:'<b>Furniture & furnishings.</b> Contemporary Ralph Lauren pieces, antiques and Persian carpets.',
+  feat2:'<b>Fireplaces.</b> Authentic French fireplaces of the 17th and 19th centuries.',
+  feat3:'<b>Parquet.</b> Radial oak throughout.',
+  feat4:'<b>Hardware.</b> Antique door bolts and hinges bearing the imperial mark.',
+  feat5:'<b>Bathrooms.</b> White marble with grey veining.',
+  feat6:'<b>Windows.</b> Made individually to order.',
+  feat7:'<b>Vertical circulation.</b> Bavarian elevator; staircase by Arden Metal.',
+  feat8:'<b>Sculpture.</b> Fine copies of original works, in the house and across the park.',
+  terrTitle:'Grounds & autonomy',
+  terrLede:'1.9 hectares of manicured parkland with rare firs, cedars, pines, chestnuts and birches — and fully independent engineering.',
+  capPark:'Park · ancient conifer forest',
+  spec1t:'Private water supply',spec1s:'Two wells — 250 m and 125 m',
+  spec2t:'110 kW electricity',spec2s:'Own diesel generator — starts within 8 seconds',
+  spec3t:'Complete autonomy',spec3s:'Dedicated gas distribution on site',
+  spec4t:'Firewood for 50 years',spec4s:'For the fireplaces throughout the house',
+  spec5t:'Staff & security house',spec5s:'Three bedrooms, kitchen, living room, security room with equipment',
+  lieuTitle:'Minutes from Moscow',
+  km:'km from MKAD',min:'minutes',
+  r1:'Borovskoye Hwy',r2:'Mozhayskoye Hwy',r3:'Vnukovo Airport',r4:'D4 · Vnukovo',r5:'D4 · Michurinets',
+  reqTitle:'A private viewing',
+  reqLede:'The property is offered as a private sale. Leave an enquiry and we will be in touch to arrange a viewing.',
+  fAgent:'Agent — full name',fBuyer:'Prospective buyer — full name',fPhone:'Contact phone',
+  phAgent:'Full name',phBuyer:'Full name',phPhone:'+7 900 000-00-00',
+  fSubmit:'Send enquiry',fNote:'Your details are used solely to arrange a viewing.',
+  footSub:'Borovskoye Highway · Private Sale',
+  footDisc:'Atmospheric images serve as a visualisation of the architectural style and are not photographs of this property. Actual photographs of the mansion appear in The Mansion, Interiors and Grounds.',
+  msgSending:'Sending…',msgOk:'Enquiry sent. We will be in touch.',
+  msgErrFields:'Please provide the agent name and phone.',msgErr:'Could not send. Please try again.'
+ }
+};
+
+var lang='ru';
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l;
+  document.getElementById('ru').classList.toggle('active',l==='ru');
+  document.getElementById('en').classList.toggle('active',l==='en');
+  var t=I18N[l];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n'); if(t[k]!=null) el.innerHTML=t[k];
+  });
+  document.querySelectorAll('[data-ph]').forEach(function(el){
+    var k=el.getAttribute('data-ph'); if(t[k]!=null) el.placeholder=t[k];
+  });
+  // prices
+  document.querySelectorAll('[data-i18n="priceShort"]').forEach(function(e){e.textContent=PRICE[l].short;});
+  document.querySelectorAll('[data-i18n="priceFact"]').forEach(function(e){e.textContent=PRICE[l].full;});
+}
+
+/* nav scroll state */
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+
+/* mobile menu */
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+/* atmosphere backgrounds + subtle parallax */
+var atmos=[];
+document.querySelectorAll('.atmo-bg').forEach(function(el){
+  el.style.backgroundImage="url('"+el.getAttribute('data-bg')+"')";
+  atmos.push(el);
+});
+window.addEventListener('scroll',function(){
+  atmos.forEach(function(el){
+    var r=el.parentElement.getBoundingClientRect();
+    if(r.bottom>0&&r.top<window.innerHeight){
+      el.style.transform='translateY('+((r.top)* -0.06)+'px) scale(1.12)';
+    }
+  });
+},{passive:true});
+
+/* scroll reveal */
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* form */
+document.getElementById('leadForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var t=I18N[lang],msg=document.getElementById('formMsg'),btn=document.getElementById('submitBtn');
+  var f=ev.target;
+  var payload={agent:f.agent.value.trim(),buyer:f.buyer.value.trim(),phone:f.phone.value.trim(),company:f.company.value};
+  msg.className='form-msg';
+  if(!payload.agent||!payload.phone){msg.classList.add('err');msg.textContent=t.msgErrFields;return;}
+  btn.disabled=true;msg.textContent=t.msgSending;
+  fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json().catch(function(){return{ok:false};});})
+    .then(function(d){
+      if(d&&d.ok){msg.className='form-msg ok';msg.textContent=t.msgOk;f.reset();}
+      else{msg.className='form-msg err';msg.textContent=t.msgErr;}
+    })
+    .catch(function(){msg.className='form-msg err';msg.textContent=t.msgErr;})
+    .finally(function(){btn.disabled=false;});
+});
+
+setLang('ru');
+</script>
+</body>
+</html>
