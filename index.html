@@ -131,16 +131,11 @@
 
   /* ---------- DECORATIVE ACCENTS ---------- */
   .decor{position:absolute;pointer-events:none;z-index:0}
-  .decor img{width:100%;height:auto;object-fit:contain}
-  .decor-col{top:0;bottom:0}
-  .decor-col img{height:100%;width:auto;object-fit:contain}
+  .decor img{display:block}
+  .decor-col{top:0;bottom:0;width:clamp(150px,22vw,400px)}
+  .decor-col img{height:100%;width:100%;object-fit:contain;object-position:bottom}
   .decor-col.left{left:-10px}
   .decor-col.right{right:-10px}
-  .decor-flowers{position:absolute;pointer-events:none;z-index:0}
-  .decor-flowers img{width:100%;height:auto;object-fit:contain}
-  .decor-sm{width:clamp(120px,16vw,220px)}
-  .decor-md{width:clamp(180px,22vw,320px)}
-  .decor-lg{width:clamp(260px,32vw,480px)}
 
   .objet{overflow:hidden;position:relative}
   .mansion{overflow:hidden;position:relative}
@@ -294,7 +289,8 @@
     .routes .route:last-child{grid-column:1/-1}
     .objet-intro{grid-template-columns:1fr}
     .objet-accent{max-width:420px;margin:30px auto 0}
-    .decor{opacity:.1!important}
+    .decor{opacity:.25!important}
+    .decor-col{width:90px!important}
   }
   @media(max-width:520px){
     body{font-size:17px}
@@ -368,7 +364,7 @@
 
 <!-- I — OBJET -->
 <section class="objet" id="objet">
-  <div class="decor decor-col right" aria-hidden="true"><img src="assets/decor/column1.png" alt="" style="opacity:.4"></div>
+  <div class="decor decor-col right" style="opacity:.4" aria-hidden="true"><img src="assets/decor/column1.png" alt=""></div>
   <div class="wrap reveal">
     <div class="sec-head"><span class="numeral">I</span><span class="eyebrow" data-i18n="navObjet">Объект</span></div>
     <h2 class="sec-title" data-i18n="objetTitle">Резиденция редкого достоинства</h2>
@@ -389,8 +385,8 @@
 
 <!-- II — MANSION -->
 <section class="mansion" id="mansion">
-  <div class="decor decor-col left" aria-hidden="true" style="left:-60px"><img src="assets/decor/column2.png" alt="" style="opacity:.35"></div>
-  <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:clamp(160px,20vw,300px)"><img src="assets/decor/roses.png" alt="" style="opacity:.3"></div>
+  <div class="decor decor-col left" aria-hidden="true" style="left:-60px;opacity:.35"><img src="assets/decor/column2.png" alt=""></div>
+  <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:clamp(160px,20vw,300px);opacity:.3"><img src="assets/decor/roses.png" alt=""></div>
   <div class="wrap">
     <div class="reveal">
       <div class="sec-head"><span class="numeral">II</span><span class="eyebrow" data-i18n="navMansion">Особняк</span></div>
@@ -476,8 +472,8 @@
 
 <!-- IV — TERRITOIRE -->
 <section class="territoire" id="territoire">
-  <div class="decor decor-col right" aria-hidden="true" style="right:-80px"><img src="assets/decor/column4.png" alt="" style="opacity:.35"></div>
-  <div class="decor" aria-hidden="true" style="left:0;bottom:0;width:clamp(160px,20vw,300px)"><img src="assets/decor/roses.png" alt="" style="opacity:.28"></div>
+  <div class="decor decor-col right" aria-hidden="true" style="right:-80px;opacity:.35"><img src="assets/decor/column4.png" alt=""></div>
+  <div class="decor" aria-hidden="true" style="left:0;bottom:0;width:clamp(160px,20vw,300px);opacity:.28"><img src="assets/decor/roses.png" alt=""></div>
   <div class="wrap">
     <div class="reveal">
       <div class="sec-head"><span class="numeral">IV</span><span class="eyebrow" data-i18n="navTerr">Территория</span></div>
@@ -499,8 +495,8 @@
 
 <!-- V — LIEU -->
 <section class="lieu" id="lieu">
-  <div class="decor" aria-hidden="true" style="left:0;bottom:0;width:100%"><img src="assets/decor/clouds.png" alt="" style="opacity:.2;width:100%"></div>
-  <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:clamp(160px,20vw,280px)"><img src="assets/decor/bust.png" alt="" style="opacity:.22"></div>
+  <div class="decor" aria-hidden="true" style="left:0;bottom:0;width:100%;opacity:.2"><img src="assets/decor/clouds.png" alt="" style="width:100%"></div>
+  <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:clamp(160px,20vw,280px);opacity:.22"><img src="assets/decor/bust.png" alt=""></div>
   <div class="wrap reveal">
     <div class="sec-head" style="justify-content:center"><span class="numeral">V</span><span class="eyebrow" data-i18n="navLieu">Расположение</span></div>
     <h2 class="sec-title" style="margin:6px auto 0;text-align:center;max-width:20ch" data-i18n="lieuTitle">В нескольких минутах от Москвы</h2>
@@ -525,8 +521,8 @@
 
 <!-- VI — DEMANDE -->
 <section class="demande" id="demande">
-  <div class="decor decor-col left" aria-hidden="true"><img src="assets/decor/column1.png" alt="" style="opacity:.25"></div>
-  <div class="decor decor-col right" aria-hidden="true"><img src="assets/decor/column1.png" alt="" style="opacity:.25;transform:scaleX(-1)"></div>
+  <div class="decor decor-col left" aria-hidden="true" style="opacity:.25"><img src="assets/decor/column1.png" alt=""></div>
+  <div class="decor decor-col right" aria-hidden="true" style="opacity:.25"><img src="assets/decor/column1.png" alt="" style="transform:scaleX(-1)"></div>
   <div class="wrap reveal">
     <div class="sec-head" style="justify-content:center"><span class="numeral">VI</span><span class="eyebrow" data-i18n="navReq">Заявка</span></div>
     <h2 data-i18n="reqTitle">Частный просмотр</h2>
