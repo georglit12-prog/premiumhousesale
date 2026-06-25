@@ -289,8 +289,11 @@
     .routes .route:last-child{grid-column:1/-1}
     .objet-intro{grid-template-columns:1fr}
     .objet-accent{max-width:420px;margin:30px auto 0}
-    .decor{opacity:.25!important}
-    .decor-col{width:90px!important}
+    .decor{opacity:.2!important}
+    .decor-col{width:70px!important;left:0!important;right:0!important;top:0!important;bottom:0!important}
+    .decor:not(.decor-col){width:90px!important}
+    .decor svg{width:100px!important}
+    .interieurs .decor{opacity:.15!important}
   }
   @media(max-width:520px){
     body{font-size:17px}
