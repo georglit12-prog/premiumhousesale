@@ -293,6 +293,10 @@
     .decor-col{left:0!important;right:0!important;width:40vw!important}
     .decor:not(.decor-col):not(svg){width:50vw!important}
     .decor svg{width:60vw!important}
+    .mansion .decor{display:none!important}
+    .lieu .decor-clouds{display:none!important}
+    .objet .decor-col{width:50vw!important}
+    .demande .decor-col{width:45vw!important}
   }
   @media(max-width:520px){
     body{font-size:17px}
@@ -497,7 +501,7 @@
 
 <!-- V — LIEU -->
 <section class="lieu" id="lieu">
-  <div class="decor" aria-hidden="true" style="left:0;bottom:0;width:100%;opacity:.2"><img src="assets/decor/clouds.png" alt="" style="width:100%"></div>
+  <div class="decor decor-clouds" aria-hidden="true" style="left:0;bottom:0;width:100%;opacity:.2"><img src="assets/decor/clouds.png" alt="" style="width:100%"></div>
   <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:clamp(160px,20vw,280px);opacity:.22"><img src="assets/decor/bust.png" alt=""></div>
   <div class="wrap reveal">
     <div class="sec-head" style="justify-content:center"><span class="numeral">V</span><span class="eyebrow" data-i18n="navLieu">Расположение</span></div>
