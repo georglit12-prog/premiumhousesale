@@ -129,6 +129,9 @@
   .mansion .sec-title{color:var(--encre)}
   .mansion .lede{color:var(--texte)}
 
+  .mobile-only{display:none}
+  .desktop-only{display:block}
+
   /* ---------- DECORATIVE ACCENTS ---------- */
   .decor{position:absolute;pointer-events:none;z-index:0}
   .decor img{display:block}
@@ -289,6 +292,8 @@
     .routes .route:last-child{grid-column:1/-1}
     .objet-intro{grid-template-columns:1fr}
     .objet-accent{max-width:420px;margin:30px auto 0}
+    .mobile-only{display:block!important}
+    .desktop-only{display:none!important}
     .decor{z-index:2!important}
     .decor-col{width:40vw!important}
     .decor-col.left{left:0!important;right:auto!important}
@@ -374,13 +379,14 @@
 
 <!-- I — OBJET -->
 <section class="objet" id="objet">
+  <div class="decor decor-col right desktop-only" style="opacity:.4" aria-hidden="true"><img src="assets/decor/column1.png" alt=""></div>
   <div class="wrap reveal">
     <div class="sec-head"><span class="numeral">I</span><span class="eyebrow" data-i18n="navObjet">Объект</span></div>
     <h2 class="sec-title" data-i18n="objetTitle">Резиденция редкого достоинства</h2>
     <p class="lede" data-i18n="objetLede">Особняк около 1 500 м² на участке 1,9 гектара, возведённый по авторскому проекту архитектора Моро в традиции французского абсолютизма. Безупречные материалы, полная инженерная автономия и закрытая территория в окружении реликтового хвойного леса.</p>
     <div class="ornament"><span>✦</span></div>
     <div class="facts">
-      <div class="decor decor-col right" style="opacity:.4" aria-hidden="true"><img src="assets/decor/column1.png" alt=""></div>
+      <div class="decor decor-col right mobile-only" style="opacity:.4" aria-hidden="true"><img src="assets/decor/column1.png" alt=""></div>
       <div class="fact"><div class="k" data-i18n="kArea">Площадь дома</div><div class="v">1 500 <small>м²</small></div></div>
       <div class="fact"><div class="k" data-i18n="kPlot">Участок</div><div class="v">1,9 <small>га</small></div></div>
       <div class="fact"><div class="k" data-i18n="kBedsBath">Спальни с ванными</div><div class="v">5</div></div>
@@ -531,7 +537,9 @@
 
 <!-- VI — DEMANDE -->
 <section class="demande" id="demande">
-  <div class="decor" aria-hidden="true" style="right:0;bottom:0;width:55%;opacity:.2"><img src="assets/decor/clouds.png" alt="" style="width:100%;transform:scaleX(-1)"></div>
+  <div class="decor decor-col left desktop-only" aria-hidden="true" style="opacity:.25"><img src="assets/decor/column1.png" alt=""></div>
+  <div class="decor decor-col right desktop-only" aria-hidden="true" style="opacity:.25"><img src="assets/decor/column1.png" alt="" style="transform:scaleX(-1)"></div>
+  <div class="decor mobile-only" aria-hidden="true" style="right:0;bottom:0;width:55%;opacity:.2"><img src="assets/decor/clouds.png" alt="" style="width:100%;transform:scaleX(-1)"></div>
   <div class="wrap reveal">
     <div class="sec-head" style="justify-content:center"><span class="numeral">VI</span><span class="eyebrow" data-i18n="navReq">Заявка</span></div>
     <h2 data-i18n="reqTitle">Частный просмотр</h2>
